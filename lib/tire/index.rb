@@ -53,7 +53,7 @@ module Tire
       id       = get_id_from_document(document)
       document = convert_document_to_json(document)
 
-      url  = id ? "#{Configuration.url}/#{@name}/#{type}/#{id}" : "#{Configuration.url}/#{@name}/#{type}/"
+      url  = id ? "#{Configuration.url}/#{@name}/#{type}/#{CGI.escape id}" : "#{Configuration.url}/#{@name}/#{type}/"
       url += "?percolate=#{percolate}" if percolate
 
       @response = Configuration.client.post url, document
@@ -134,7 +134,7 @@ module Tire
       end
       raise ArgumentError, "Please pass a document ID" unless id
 
-      url    = "#{Configuration.url}/#{@name}/#{type}/#{id}"
+      url    = "#{Configuration.url}/#{@name}/#{type}/#{CGI.escape id}"
       result = Configuration.client.delete url
       MultiJson.decode(result.body) if result.success?
 
@@ -146,7 +146,7 @@ module Tire
     def retrieve(type, id)
       raise ArgumentError, "Please pass a document ID" unless id
 
-      url       = "#{Configuration.url}/#{@name}/#{type}/#{id}"
+      url       = "#{Configuration.url}/#{@name}/#{type}/#{CGI.escape id}"
       @response = Configuration.client.get url
 
       h = MultiJson.decode(@response.body)
