@@ -46,7 +46,7 @@ module Tire
                                  "document has no _type property." unless type
 
             begin
-              klass = type.camelize.constantize
+              klass = type.gsub(/-/, '/').camelize.constantize
             rescue NameError => e
               raise NameError, "You have tried to eager load the model instances, but " +
                                "Tire cannot find the model class '#{type.camelize}' " +

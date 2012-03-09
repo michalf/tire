@@ -58,7 +58,7 @@ module Tire
       # Let's pretend we're someone else in Rails
       #
       def class
-        defined?(::Rails) && @attributes[:_type] ? @attributes[:_type].camelize.constantize : super
+        @attributes[:_type] ? @attributes[:_type].gsub(/-/, '/').camelize.constantize : super
       rescue NameError
         super
       end
