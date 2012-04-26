@@ -132,11 +132,11 @@ module Tire
               index.remove instance
             else
               response  = index.store( instance, {:percolate => percolator} )
-              instance.id     ||= response['_id']      if instance.respond_to?(:id=)
-              instance._index   = response['_index']   if instance.respond_to?(:_index=)
-              instance._type    = response['_type']    if instance.respond_to?(:_type=)
-              instance._version = response['_version'] if instance.respond_to?(:_version=)
-              instance.matches  = response['matches']  if instance.respond_to?(:matches=)
+              instance.id       ||= response['_id']      if instance.respond_to?(:id=)
+              instance._index     = response['_index']   if instance.respond_to?(:_index=)
+              instance._tire_type = response['_type']    if instance.respond_to?(:_tire_type=)
+              instance._version   = response['_version'] if instance.respond_to?(:_version=)
+              instance.matches    = response['matches']  if instance.respond_to?(:matches=)
               self
             end
           end
